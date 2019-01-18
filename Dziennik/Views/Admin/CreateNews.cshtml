@@ -1,0 +1,195 @@
+﻿@model Dziennik.Models.Ogloszenia
+@{
+    ViewBag.Title = "Nowe ogłoszenie";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    @Styles.Render("~/Content/Site.css")
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url(../../Images/background_classroom.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 600px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box .field-validation-error label {
+                color: red;
+                text-align: center;
+            }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+            .box .inputBoxDate,
+            .box .inputBoxBig,
+            .box .inputBox {
+                position: relative;
+            }
+
+                .box .inputBox input {
+                    width: 500px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                    right: 0;
+                }
+                
+                .box .inputBoxBig input {
+                    width: 40px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    outline: none;
+                    background: transparent;
+                    right: 0;
+                }
+
+                .box .inputBoxBig textarea {
+                    width: 500px;
+                    height: 400px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                    resize: none;
+                }
+
+                .box .inputBoxDate input {
+                    width: 500px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                    text-align: center;
+                }
+
+                .box .inputBox label,
+                .box .inputBoxDate label {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    color: white;
+                    pointer-events: none;
+                    transition: .5s;
+                }
+
+                .box .inputBoxDate input:focus ~ label,
+                .box .inputBoxDate input:valid ~ label,
+                .box .inputBox input:focus ~ label,
+                .box .inputBox input:valid ~ label {
+                    top: -25px;
+                    left: 0;
+                    color: #03a9f4;
+                    font-size: 12px;
+                }
+
+            .box input[type="submit"] {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+
+            .box a.button {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 12px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+    </style>
+
+    <script type="text/javascript">
+
+        function TextAreaValidation(field, count, max) {
+            if (field.value.length > max) {
+                field.value = field.value.substring(0, max);
+                field.blur();
+                field.focus();
+                return false;
+            }
+            else
+                count.value = max - field.value.length;
+
+        }
+    </script>
+</head>
+
+<body style="background-image: url(../../Images/background_classroom.jpg);">
+    @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post))
+    {
+    <div class="box">
+        <h2>Nowe ogłoszenie</h2>
+        <div class="inputBox">
+            <input type="text" name="tytul" id="tytul" required>
+            <label>Tytuł</label>
+        </div>
+        <div class="inputBoxDate">
+            <input type="date" name="dataWaznosci" id="dataWaznosci" required>
+            <label>Data wygaśnięcia</label>
+        </div>
+        <div class="inputBoxBig">
+            <textarea type="text" name="tresc" id="tresc" required maxlength="2000" onblur="TextAreaValidation(this,this.form.counter,2000);"
+                      onkeyup="TextAreaValidation(this,this.form.counter,2000);">Treść ogłoszenia</textarea>
+            Pozostało <input onblur="TextAreaValidation(this.form.recipients,this,2000);" disabled="disabled" onfocus="this.blur();" value="2000" name="counter" />znaków
+        </div>
+        <input type="submit" value="Utwórz">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a>@Html.ActionLink("Cofnij", "Classes", null, new { @class = "button" })</a>
+    </div>
+    }
+</body>
+</html>

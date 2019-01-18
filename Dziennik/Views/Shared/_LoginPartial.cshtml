@@ -1,0 +1,37 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Login";
+}
+
+@if (HttpContext.Current.Session["AdminIsLoggedIn"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Wyloguj", "Logout", "Login", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+    </ul>
+}
+else if (HttpContext.Current.Session["TeacherIsLoggedIn"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Wyloguj", "Logout", "Login", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+    </ul>
+}
+else if (HttpContext.Current.Session["StudentIsLoggedIn"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Wyloguj", "Logout", "Login", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+    </ul>
+}
+else if (HttpContext.Current.Session["ParentIsLoggedIn"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Wyloguj", "Logout", "Login", routeValues: null, htmlAttributes: new { id = "logoutLink" })</li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Zaloguj", "Login", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

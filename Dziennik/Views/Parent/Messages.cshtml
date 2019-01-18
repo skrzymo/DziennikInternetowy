@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Dziennik.Models.Wiadomosc>
+
+@{
+    ViewBag.Title = "Wiadomości";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url(../../Images/background_classroom.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .sidenav {
+            margin-top: 50px;
+            height: 100%;
+            width: 220px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #34434A;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            .sidenav a {
+                padding: 6px 6px 6px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #fff;
+                display: block;
+                font-family: 'Lucida Handwriting';
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 800px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+        .table {
+            color: white;
+        }
+
+            .table th {
+                font-size: 18px;
+            }
+
+        .box p.button, .box a {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            background: #03a9f4;
+            padding: 5px 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body style="background-image: url(../../Images/background_parent.jpg);">
+
+    <div class="sidenav">
+        <a>@Html.ActionLink("Dane osobowe", "PersonalDetails", "Parent", new { id = Session["PersonID"] }, htmlAttributes: new { id = "classesLink" })</a>
+        <a>@Html.ActionLink("Wiadomości", "Messages", "Parent", routeValues: null, htmlAttributes: new { id = "subjectsLink" })</a>
+        @foreach (var item in ViewBag.children)
+        {
+            <a>@Html.ActionLink((string)item.Osoba.FullName, "ChooseSubject", "Parent", routeValues: null, htmlAttributes: new { id = "teachersLink" })</a>
+        }
+    </div>
+
+    <div class="box">
+        <h2>Wiadomości</h2>
+        <p>@Html.ActionLink("Wyślij nowe zapytanie", "CreateMessage", null, new { @class = "button" })</p>
+        <br><br />
+        <table class="table">
+            <tr>
+                <th>
+                    Tytuł
+                </th>
+                <th>
+                    Do
+                </th>
+                <th>
+                    Data
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.tytul
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nauczyciel.Osoba.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.data)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Podgląd", "MessageDetails", new { id = item.id_wiadomosci }) |
+                        @Html.ActionLink("Usuń", "DeleteMessage", new { id = item.id_wiadomosci }, new { onclick = "return confirm('Czy na pewno chcesz usunąć wiadomość?!')" })
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</body>
+

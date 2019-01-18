@@ -1,0 +1,193 @@
+﻿@model Dziennik.Models.Pytanie
+@{
+    ViewBag.Title = "Tworzenie pytań";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url(../../Images/background_classroom.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+        .box {
+            position: absolute;
+            top: 100px;
+            left: 30%;
+            width: 600px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box .field-validation-error label {
+                color: red;
+                text-align: center;
+            }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+            .box .inputBoxStudents .inputBox {
+                position: relative;
+            }
+
+            .box .inputBoxStudents .inputBox p2 {
+                width: 300px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                border: 1px solid white;
+                outline: none;
+                background: transparent;
+            }
+
+            .box .inputBoxStudents .inputBox input {
+                width: 500px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                border: 1px solid white;
+                outline: none;
+                background: transparent;
+                margin-left: 25px;
+            }
+
+                .box .inputBoxStudents .inputBox label {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    color: white;
+                    pointer-events: none;
+                    transition: .5s;
+                    margin-left: 25px;
+                }
+
+                .box label {
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    color: white;
+                    pointer-events: none;
+                }
+
+            .box .inputBoxStudents .inputBox input:focus ~ label,
+            .box .inputBoxStudents .inputBox input:valid ~ label {
+                top: -25px;
+                left: 0;
+                color: #03a9f4;
+                font-size: 12px;
+            }
+
+            .box input[type="submit"] {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+
+            .box .inputBoxStudents .inputBoxBig input {
+                width: 40px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                outline: none;
+                background: transparent;
+                right: 0;
+            }
+
+            .box .inputBoxStudents .inputBoxBig .signs {
+                margin-left: 25px;
+            }
+
+            .box .inputBoxStudents .inputBoxBig textarea {
+                width: 500px;
+                height: 100px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                border: 1px solid white;
+                outline: none;
+                background: transparent;
+                resize: none;
+                margin-left: 25px;
+                margin-top: 25px;
+            }
+
+            .box .inputBoxStudents {
+                position: relative;
+                margin-bottom: 30px;
+                border: 1px solid white;
+                padding-bottom: 5px;
+                width: 550px;
+                word-wrap: break-word;
+            }
+    </style>
+</head>
+
+<body style="background-image: url(../../Images/background_teacher.jpg);">
+    @using (Html.BeginForm("CreateQuestions", "Teacher", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="box">
+        <h2>Stwórz pytania do testu @ViewBag.testName</h2>
+
+        @for (int i = 1; i <= ViewBag.questionsNumber; ++i)
+        {
+            <label>Pytanie @i</label>
+            <div class="inputBoxStudents">
+                <div class="inputBoxBig">
+                    <textarea type="text" name="odpowiedz" id="odpowiedz" required maxlength="1000" onblur="TextAreaValidation(this,this.form.counter,1000);"
+                              onkeyup="TextAreaValidation(this,this.form.counter,1000);">Treść pytania</textarea>
+                    <span class="signs">Pozostało <input onblur="TextAreaValidation(this.form.recipients,this,1000);" disabled="disabled" onfocus="this.blur();" value="1000" name="counter" />znaków</span>
+                </div>
+
+                <div class="inputBox">
+                    <input type="number" min="0" name="punkty" id="punkty" required>
+                    <label>Liczba punktów za prawidłową odpowiedź</label>
+                </div>
+            </div>
+        }
+        <br><br />
+        <input type="submit" value="Dalej">
+    </div>
+    }
+</body>
+</html>
+

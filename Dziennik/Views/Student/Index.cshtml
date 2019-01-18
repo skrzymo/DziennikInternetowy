@@ -1,0 +1,58 @@
+﻿@model Dziennik.Models.Osoba
+@{
+    ViewBag.Title = "Uczeń";
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url(../../Images/background_student.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .sidenav {
+            margin-top: 50px;
+            height: 100%;
+            width: 220px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #34434A;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            .sidenav a {
+                padding: 6px 6px 6px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #fff;
+                display: block;
+                font-family: 'Lucida Handwriting';
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidenav">
+        <a>@Html.ActionLink("Dane osobowe", "PersonalDetails", "Student", new { id = Session["PersonID"] }, htmlAttributes: new { id = "classesLink" })</a>
+        <a>@Html.ActionLink("Oceny", "ChooseSubject", "Student", new { id = "grades" }, htmlAttributes: new { id = "teachersLink" })</a>
+        <a>@Html.ActionLink("Zobacz dostępne pliki", "ChooseSubject", "Student", new { id = "files" }, htmlAttributes: new { id = "teachersLink" })</a>
+        <a>@Html.ActionLink("Testy", "Tests", "Student", new { id = "tests" }, htmlAttributes: new { id = "teachersLink" })</a>
+    </div>
+
+    <div class="main">
+        <h2>Uczeń</h2>
+    </div>
+
+</body>

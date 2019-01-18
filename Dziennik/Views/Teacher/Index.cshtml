@@ -1,0 +1,63 @@
+﻿@model Dziennik.Models.Nauczyciel
+@{
+    ViewBag.Title = "Nauczyciel";
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url(../../Images/background_teacher.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .sidenav {
+            margin-top: 50px;
+            height: 100%;
+            width: 220px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #34434A;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            .sidenav a {
+                padding: 6px 6px 6px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #fff;
+                display: block;
+                font-family: 'Lucida Handwriting';
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidenav">
+        <a>@Html.ActionLink("Dane osobowe", "PersonalDetails", "Teacher", new { id = Session["PersonID"] }, htmlAttributes: new { id = "classesLink" })</a>
+        <a>@Html.ActionLink("Dodaj ocenę", "ChooseClass", "Teacher", routeValues: null, htmlAttributes: new { id = "teachersLink" })</a>
+        <a>@Html.ActionLink("Wiadomości", "Messages", "Teacher", routeValues: null, htmlAttributes: new { id = "subjectsLink" })</a>
+        <a>@Html.ActionLink("Dodaj plik", "UploadFile", "Teacher", routeValues: null, htmlAttributes: new { id = "subjectsLink" })</a>
+        <a>@Html.ActionLink("Stwórz nowy test", "CreateTest", "Teacher", routeValues: null, htmlAttributes: new { id = "subjectsLink" })</a>
+        @if (ViewBag.isTutor)
+        {
+            <a>@Html.ActionLink("Wyślij ogłoszenie", "SendNotice", "Teacher", routeValues: null, htmlAttributes: new { id = "subjectsLink" })</a>
+        }
+    </div>
+
+    <div class="main">
+        <h2>Nauczyciel</h2>
+    </div>
+
+</body>

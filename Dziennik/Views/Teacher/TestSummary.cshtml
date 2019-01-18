@@ -1,0 +1,229 @@
+﻿@model Dziennik.Models.Test
+@{
+    ViewBag.Title = "Podsumowanie testu";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url(../../Images/background_classroom.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+        .box {
+            position: absolute;
+            top: 100px;
+            left: 30%;
+            width: 600px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box .field-validation-error label {
+                color: red;
+                text-align: center;
+            }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+            .box .inputBoxStudents .inputBox {
+                position: relative;
+            }
+
+                .box .inputBoxStudents .inputBox p2 {
+                    width: 300px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                }
+
+                .box .inputBoxStudents .inputBox input {
+                    width: 500px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                    margin-left: 25px;
+                }
+
+                .box .inputBoxStudents .inputBox label {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    color: white;
+                    pointer-events: none;
+                    transition: .5s;
+                    margin-left: 25px;
+                }
+
+            .box label {
+                padding: 10px 10px;
+                font-size: 16px;
+                color: white;
+                pointer-events: none;
+            }
+
+            .box .inputBoxStudents .inputBox input:focus ~ label,
+            .box .inputBoxStudents .inputBox input:valid ~ label {
+                top: -25px;
+                left: 0;
+                color: #03a9f4;
+                font-size: 12px;
+            }
+
+            .box input[type="submit"] {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+
+            .box .inputBoxStudents .inputBoxBig input {
+                width: 40px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                outline: none;
+                background: transparent;
+                right: 0;
+            }
+
+            .box .inputBoxStudents .inputBoxBig .signs {
+                margin-left: 25px;
+            }
+
+            .box .inputBoxStudents .inputBoxBig textarea {
+                width: 500px;
+                height: 100px;
+                padding: 10px 0;
+                font-size: 16px;
+                color: white;
+                margin-bottom: 30px;
+                border: none;
+                border: 1px solid white;
+                outline: none;
+                background: transparent;
+                resize: none;
+                margin-left: 25px;
+                margin-top: 25px;
+            }
+
+            .box .inputBoxStudents {
+                position: relative;
+                margin-bottom: 30px;
+                border: 1px solid white;
+                padding-bottom: 5px;
+                width: 550px;
+                word-wrap: break-word;
+            }
+
+                .box .inputBoxStudents .addAnswers .button {
+                    background: transparent;
+                    font-size: 12px;
+                    border: none;
+                    outline: none;
+                    color: white;
+                    background: #03a9f4;
+                    padding: 5px 5px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    float: right;
+                    margin-top: 10px;
+                    margin-right: 5px;
+                    text-decoration: none;
+                }
+
+            .box .backButton .button {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                float: right;
+                font-size: larger;
+                text-decoration: none;
+                margin-bottom: 30px;
+            }
+    </style>
+</head>
+
+<body style="background-image: url(../../Images/background_teacher.jpg);">
+
+    <div class="box">
+        <h2>Podsumowanie testu - @Html.DisplayFor(model => model.nazwa)</h2>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.czas_trwania, "Czas trwania", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.czas_trwania)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.max_punktow, "Maksymalna liczba punktów", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.max_punktow)
+        </div>
+        @{int i = 1;}
+        @foreach (var item in Model.Pytanies)
+        {
+            <label>Pytanie @i (@Html.DisplayFor(modelItem => item.pkt_za_odpowiedz) pkt.)</label>
+            <div class="inputBoxStudents">
+                @Html.DisplayFor(modelItem => item.tresc)
+                <ul>
+                    @foreach (var answer in item.Odpowiedzs)
+                    {
+                        <li>
+                            @Html.DisplayFor(modelItem => answer.tresc)
+                        </li>
+                    }
+                </ul>
+                <span class="addAnswers">@Html.ActionLink("Dodaj odpowiedzi", "CreateAnswers", new { id = item.id_pytania }, new { @class = "button" })</span>
+            </div>
+            i++;
+        }
+        <br><br />
+            <span class="backButton">@Html.ActionLink("Zamknij", "Index", null, new { @class = "button" })</span>
+    </div>
+</body>
+</html>
+

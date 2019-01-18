@@ -1,0 +1,1249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DziennikModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Klasa">
+          <Key>
+            <PropertyRef Name="id_klasy" />
+          </Key>
+          <Property Name="id_klasy" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_wychowawcy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nauczyciel">
+          <Key>
+            <PropertyRef Name="id_nauczyciela" />
+          </Key>
+          <Property Name="id_nauczyciela" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_osoby" Type="int" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ocena">
+          <Key>
+            <PropertyRef Name="id_oceny" />
+          </Key>
+          <Property Name="id_oceny" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ocena" Type="int" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="int" Nullable="false" />
+          <Property Name="id_ucznia" Type="int" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="id_testu" Type="int" />
+        </EntityType>
+        <EntityType Name="Odpowiedz">
+          <Key>
+            <PropertyRef Name="id_odpowiedzi" />
+          </Key>
+          <Property Name="id_odpowiedzi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tresc" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="id_pytania" Type="int" Nullable="false" />
+          <Property Name="czyPoprawna" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ogloszenia">
+          <Key>
+            <PropertyRef Name="id_ogloszenia" />
+          </Key>
+          <Property Name="id_ogloszenia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tresc" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="data_dodania" Type="date" Nullable="false" />
+          <Property Name="id_statusu" Type="int" Nullable="false" />
+          <Property Name="data_waznosci" Type="date" Nullable="false" />
+          <Property Name="tytul" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_klasy" Type="int" />
+        </EntityType>
+        <EntityType Name="Osoba">
+          <Key>
+            <PropertyRef Name="id_osoby" />
+          </Key>
+          <Property Name="id_osoby" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="50" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="50" />
+          <Property Name="adres" Type="varchar" MaxLength="200" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="haslo" Type="varchar" MaxLength="100" />
+          <Property Name="telefon" Type="varchar" MaxLength="20" />
+          <Property Name="data_urodzenia" Type="date" />
+          <Property Name="data_hasla" Type="date" Nullable="false" />
+          <Property Name="uprawnienia" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Przedmiot">
+          <Key>
+            <PropertyRef Name="id_przedmiotu" />
+          </Key>
+          <Property Name="id_przedmiotu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="100" />
+          <Property Name="tresc_ksztalcenia" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="PrzedmiotyWKlasie">
+          <Key>
+            <PropertyRef Name="id_przedmiotu_w_klasie" />
+          </Key>
+          <Property Name="id_przedmiotu_w_klasie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="int" Nullable="false" />
+          <Property Name="id_klasy" Type="int" Nullable="false" />
+          <Property Name="id_nauczyciela" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pytanie">
+          <Key>
+            <PropertyRef Name="id_pytania" />
+          </Key>
+          <Property Name="id_pytania" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_testu" Type="int" Nullable="false" />
+          <Property Name="tresc" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="pkt_za_odpowiedz" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rodzic">
+          <Key>
+            <PropertyRef Name="id_rodzica" />
+          </Key>
+          <Property Name="id_rodzica" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_osoby" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id_statusu" />
+          </Key>
+          <Property Name="id_statusu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="id_testu" />
+          </Key>
+          <Property Name="id_testu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_nauczyciela" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="int" Nullable="false" />
+          <Property Name="czas_trwania" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ilosc_pytan" Type="int" Nullable="false" />
+          <Property Name="max_punktow" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uczen">
+          <Key>
+            <PropertyRef Name="id_ucznia" />
+          </Key>
+          <Property Name="id_ucznia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_osoby" Type="int" Nullable="false" />
+          <Property Name="id_rodzica" Type="int" Nullable="false" />
+          <Property Name="id_klasy" Type="int" />
+        </EntityType>
+        <EntityType Name="Wiadomosc">
+          <Key>
+            <PropertyRef Name="id_wiadomosci" />
+          </Key>
+          <Property Name="id_wiadomosci" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tresc" Type="varchar" MaxLength="1000" />
+          <Property Name="id_rodzica" Type="int" Nullable="false" />
+          <Property Name="id_nauczyciela" Type="int" Nullable="false" />
+          <Property Name="data" Type="date" Nullable="false" />
+          <Property Name="odpowiedz" Type="varchar" MaxLength="1000" />
+          <Property Name="tytul" Type="varchar" MaxLength="50" />
+          <Property Name="czyNauczyciel" Type="bit" Nullable="false" />
+          <Property Name="czyRodzic" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Klasa_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Klasa">
+              <PropertyRef Name="id_wychowawcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nauczyciel_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Nauczyciel">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nauczyciel_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Nauczyciel">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Test">
+          <End Role="Test" Type="Self.Test" Multiplicity="0..1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="id_testu" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_testu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Uczen">
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uczen">
+              <PropertyRef Name="id_ucznia" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_ucznia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odpowiedz_Pytanie">
+          <End Role="Pytanie" Type="Self.Pytanie" Multiplicity="1" />
+          <End Role="Odpowiedz" Type="Self.Odpowiedz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pytanie">
+              <PropertyRef Name="id_pytania" />
+            </Principal>
+            <Dependent Role="Odpowiedz">
+              <PropertyRef Name="id_pytania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogloszenia_Klasa">
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="0..1" />
+          <End Role="Ogloszenia" Type="Self.Ogloszenia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="Ogloszenia">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogloszenia_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Ogloszenia" Type="Self.Ogloszenia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_statusu" />
+            </Principal>
+            <Dependent Role="Ogloszenia">
+              <PropertyRef Name="id_statusu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrzedmiotyWKlasie_Klasa">
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="1" />
+          <End Role="PrzedmiotyWKlasie" Type="Self.PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrzedmiotyWKlasie_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="PrzedmiotyWKlasie" Type="Self.PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrzedmiotyWKlasie_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="PrzedmiotyWKlasie" Type="Self.PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pytanie_Test">
+          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+          <End Role="Pytanie" Type="Self.Pytanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="id_testu" />
+            </Principal>
+            <Dependent Role="Pytanie">
+              <PropertyRef Name="id_testu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rodzic_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Rodzic">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Klasa">
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="0..1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Rodzic">
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzic">
+              <PropertyRef Name="id_rodzica" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_rodzica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Wiadomosc">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Rodzic">
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="1" />
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzic">
+              <PropertyRef Name="id_rodzica" />
+            </Principal>
+            <Dependent Role="Wiadomosc">
+              <PropertyRef Name="id_rodzica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Wiadomosc">
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="1" />
+          <End Role="Wiadomosc1" Type="Self.Wiadomosc" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Wiadomosc">
+              <PropertyRef Name="id_wiadomosci" />
+            </Principal>
+            <Dependent Role="Wiadomosc1">
+              <PropertyRef Name="id_wiadomosci" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DziennikModelStoreContainer">
+          <EntitySet Name="Klasa" EntityType="Self.Klasa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nauczyciel" EntityType="Self.Nauczyciel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ocena" EntityType="Self.Ocena" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odpowiedz" EntityType="Self.Odpowiedz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ogloszenia" EntityType="Self.Ogloszenia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Osoba" EntityType="Self.Osoba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Przedmiot" EntityType="Self.Przedmiot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrzedmiotyWKlasie" EntityType="Self.PrzedmiotyWKlasie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pytanie" EntityType="Self.Pytanie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rodzic" EntityType="Self.Rodzic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uczen" EntityType="Self.Uczen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wiadomosc" EntityType="Self.Wiadomosc" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Klasa_Nauczyciel" Association="Self.FK_Klasa_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+            <End Role="Klasa" EntitySet="Klasa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nauczyciel_Osoba" Association="Self.FK_Nauczyciel_Osoba">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nauczyciel_Przedmiot" Association="Self.FK_Nauczyciel_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiot" />
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Przedmiot" Association="Self.FK_Ocena_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiot" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Test" Association="Self.FK_Ocena_Test">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Uczen" Association="Self.FK_Ocena_Uczen">
+            <End Role="Uczen" EntitySet="Uczen" />
+            <End Role="Ocena" EntitySet="Ocena" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odpowiedz_Pytanie" Association="Self.FK_Odpowiedz_Pytanie">
+            <End Role="Pytanie" EntitySet="Pytanie" />
+            <End Role="Odpowiedz" EntitySet="Odpowiedz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogloszenia_Klasa" Association="Self.FK_Ogloszenia_Klasa">
+            <End Role="Klasa" EntitySet="Klasa" />
+            <End Role="Ogloszenia" EntitySet="Ogloszenia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogloszenia_Status" Association="Self.FK_Ogloszenia_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Ogloszenia" EntitySet="Ogloszenia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Klasa" Association="Self.FK_PrzedmiotyWKlasie_Klasa">
+            <End Role="Klasa" EntitySet="Klasa" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Nauczyciel" Association="Self.FK_PrzedmiotyWKlasie_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Przedmiot" Association="Self.FK_PrzedmiotyWKlasie_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiot" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pytanie_Test" Association="Self.FK_Pytanie_Test">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Pytanie" EntitySet="Pytanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rodzic_Osoba" Association="Self.FK_Rodzic_Osoba">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="Rodzic" EntitySet="Rodzic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Nauczyciel" Association="Self.FK_Test_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Przedmiot" Association="Self.FK_Test_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiot" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Klasa" Association="Self.FK_Uczen_Klasa">
+            <End Role="Klasa" EntitySet="Klasa" />
+            <End Role="Uczen" EntitySet="Uczen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Osoba" Association="Self.FK_Uczen_Osoba">
+            <End Role="Osoba" EntitySet="Osoba" />
+            <End Role="Uczen" EntitySet="Uczen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Rodzic" Association="Self.FK_Uczen_Rodzic">
+            <End Role="Rodzic" EntitySet="Rodzic" />
+            <End Role="Uczen" EntitySet="Uczen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Nauczyciel" Association="Self.FK_Wiadomosc_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciel" />
+            <End Role="Wiadomosc" EntitySet="Wiadomosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Rodzic" Association="Self.FK_Wiadomosc_Rodzic">
+            <End Role="Rodzic" EntitySet="Rodzic" />
+            <End Role="Wiadomosc" EntitySet="Wiadomosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Wiadomosc" Association="Self.FK_Wiadomosc_Wiadomosc">
+            <End Role="Wiadomosc" EntitySet="Wiadomosc" />
+            <End Role="Wiadomosc1" EntitySet="Wiadomosc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DziennikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Klasa">
+          <Key>
+            <PropertyRef Name="id_klasy" />
+          </Key>
+          <Property Name="id_klasy" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_wychowawcy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nauczyciel" Relationship="Self.FK_Klasa_Nauczyciel" FromRole="Klasa" ToRole="Nauczyciel" />
+          <NavigationProperty Name="Uczens" Relationship="Self.FK_Uczen_Klasa" FromRole="Klasa" ToRole="Uczen" />
+          <NavigationProperty Name="PrzedmiotyWKlasies" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Klasa" FromRole="Klasa" ToRole="PrzedmiotyWKlasie" />
+          <NavigationProperty Name="Ogloszenias" Relationship="DziennikModel.FK_Ogloszenia_Klasa" FromRole="Klasa" ToRole="Ogloszenia" />
+        </EntityType>
+        <EntityType Name="Nauczyciel">
+          <Key>
+            <PropertyRef Name="id_nauczyciela" />
+          </Key>
+          <Property Name="id_nauczyciela" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_osoby" Type="Int32" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klasas" Relationship="Self.FK_Klasa_Nauczyciel" FromRole="Nauczyciel" ToRole="Klasa" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK_Nauczyciel_Osoba" FromRole="Nauczyciel" ToRole="Osoba" />
+          <NavigationProperty Name="Przedmiot" Relationship="Self.FK_Nauczyciel_Przedmiot" FromRole="Nauczyciel" ToRole="Przedmiot" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK_Test_Nauczyciel" FromRole="Nauczyciel" ToRole="Test" />
+          <NavigationProperty Name="Wiadomoscs" Relationship="Self.FK_Wiadomosc_Nauczyciel" FromRole="Nauczyciel" ToRole="Wiadomosc" />
+          <NavigationProperty Name="PrzedmiotyWKlasies" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Nauczyciel" FromRole="Nauczyciel" ToRole="PrzedmiotyWKlasie" />
+        </EntityType>
+        <EntityType Name="Ocena">
+          <Key>
+            <PropertyRef Name="id_oceny" />
+          </Key>
+          <Property Name="id_oceny" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ocena1" Type="Int32" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="Int32" Nullable="false" />
+          <Property Name="id_ucznia" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Przedmiot" Relationship="Self.FK_Ocena_Przedmiot" FromRole="Ocena" ToRole="Przedmiot" />
+          <NavigationProperty Name="Uczen" Relationship="Self.FK_Ocena_Uczen" FromRole="Ocena" ToRole="Uczen" />
+          <Property Name="id_testu" Type="Int32" />
+          <NavigationProperty Name="Test" Relationship="DziennikModel.FK_Ocena_Test" FromRole="Ocena" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="Odpowiedz">
+          <Key>
+            <PropertyRef Name="id_odpowiedzi" />
+          </Key>
+          <Property Name="id_odpowiedzi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tresc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_pytania" Type="Int32" Nullable="false" />
+          <Property Name="czyPoprawna" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pytanie" Relationship="DziennikModel.FK_Odpowiedz_Pytanie" FromRole="Odpowiedz" ToRole="Pytanie" />
+        </EntityType>
+        <EntityType Name="Ogloszenia">
+          <Key>
+            <PropertyRef Name="id_ogloszenia" />
+          </Key>
+          <Property Name="id_ogloszenia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tresc" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_dodania" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_statusu" Type="Int32" Nullable="false" />
+          <Property Name="data_waznosci" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tytul" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Ogloszenia_Status" FromRole="Ogloszenia" ToRole="Status" />
+          <Property Name="id_klasy" Type="Int32" />
+          <NavigationProperty Name="Klasa" Relationship="DziennikModel.FK_Ogloszenia_Klasa" FromRole="Ogloszenia" ToRole="Klasa" />
+        </EntityType>
+        <EntityType Name="Osoba">
+          <Key>
+            <PropertyRef Name="id_osoby" />
+          </Key>
+          <Property Name="id_osoby" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="adres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="haslo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="data_urodzenia" Type="DateTime" Precision="0" />
+          <Property Name="data_hasla" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="uprawnienia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Nauczyciels" Relationship="Self.FK_Nauczyciel_Osoba" FromRole="Osoba" ToRole="Nauczyciel" />
+          <NavigationProperty Name="Rodzics" Relationship="Self.FK_Rodzic_Osoba" FromRole="Osoba" ToRole="Rodzic" />
+          <NavigationProperty Name="Uczens" Relationship="Self.FK_Uczen_Osoba" FromRole="Osoba" ToRole="Uczen" />
+        </EntityType>
+        <EntityType Name="Przedmiot">
+          <Key>
+            <PropertyRef Name="id_przedmiotu" />
+          </Key>
+          <Property Name="id_przedmiotu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tresc_ksztalcenia" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Nauczyciels" Relationship="Self.FK_Nauczyciel_Przedmiot" FromRole="Przedmiot" ToRole="Nauczyciel" />
+          <NavigationProperty Name="Ocenas" Relationship="Self.FK_Ocena_Przedmiot" FromRole="Przedmiot" ToRole="Ocena" />
+          <NavigationProperty Name="Tests" Relationship="Self.FK_Test_Przedmiot" FromRole="Przedmiot" ToRole="Test" />
+          <NavigationProperty Name="PrzedmiotyWKlasies" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Przedmiot" FromRole="Przedmiot" ToRole="PrzedmiotyWKlasie" />
+        </EntityType>
+        <EntityType Name="Pytanie">
+          <Key>
+            <PropertyRef Name="id_pytania" />
+          </Key>
+          <Property Name="id_pytania" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_testu" Type="Int32" Nullable="false" />
+          <Property Name="tresc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_Pytanie_Test" FromRole="Pytanie" ToRole="Test" />
+          <Property Name="pkt_za_odpowiedz" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Odpowiedzs" Relationship="DziennikModel.FK_Odpowiedz_Pytanie" FromRole="Pytanie" ToRole="Odpowiedz" />
+        </EntityType>
+        <EntityType Name="Rodzic">
+          <Key>
+            <PropertyRef Name="id_rodzica" />
+          </Key>
+          <Property Name="id_rodzica" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_osoby" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK_Rodzic_Osoba" FromRole="Rodzic" ToRole="Osoba" />
+          <NavigationProperty Name="Uczens" Relationship="Self.FK_Uczen_Rodzic" FromRole="Rodzic" ToRole="Uczen" />
+          <NavigationProperty Name="Wiadomoscs" Relationship="Self.FK_Wiadomosc_Rodzic" FromRole="Rodzic" ToRole="Wiadomosc" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id_statusu" />
+          </Key>
+          <Property Name="id_statusu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ogloszenias" Relationship="Self.FK_Ogloszenia_Status" FromRole="Status" ToRole="Ogloszenia" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="id_testu" />
+          </Key>
+          <Property Name="id_testu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_nauczyciela" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_przedmiotu" Type="Int32" Nullable="false" />
+          <Property Name="czas_trwania" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ilosc_pytan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nauczyciel" Relationship="Self.FK_Test_Nauczyciel" FromRole="Test" ToRole="Nauczyciel" />
+          <NavigationProperty Name="Przedmiot" Relationship="Self.FK_Test_Przedmiot" FromRole="Test" ToRole="Przedmiot" />
+          <NavigationProperty Name="Pytanies" Relationship="Self.FK_Pytanie_Test" FromRole="Test" ToRole="Pytanie" />
+          <Property Name="max_punktow" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ocenas" Relationship="DziennikModel.FK_Ocena_Test" FromRole="Test" ToRole="Ocena" />
+        </EntityType>
+        <EntityType Name="Uczen">
+          <Key>
+            <PropertyRef Name="id_ucznia" />
+          </Key>
+          <Property Name="id_ucznia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_osoby" Type="Int32" Nullable="false" />
+          <Property Name="id_rodzica" Type="Int32" Nullable="false" />
+          <Property Name="id_klasy" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Klasa" Relationship="Self.FK_Uczen_Klasa" FromRole="Uczen" ToRole="Klasa" />
+          <NavigationProperty Name="Ocenas" Relationship="Self.FK_Ocena_Uczen" FromRole="Uczen" ToRole="Ocena" />
+          <NavigationProperty Name="Osoba" Relationship="Self.FK_Uczen_Osoba" FromRole="Uczen" ToRole="Osoba" />
+          <NavigationProperty Name="Rodzic" Relationship="Self.FK_Uczen_Rodzic" FromRole="Uczen" ToRole="Rodzic" />
+        </EntityType>
+        <EntityType Name="Wiadomosc">
+          <Key>
+            <PropertyRef Name="id_wiadomosci" />
+          </Key>
+          <Property Name="id_wiadomosci" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tresc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="id_rodzica" Type="Int32" Nullable="false" />
+          <Property Name="id_nauczyciela" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Nauczyciel" Relationship="Self.FK_Wiadomosc_Nauczyciel" FromRole="Wiadomosc" ToRole="Nauczyciel" />
+          <NavigationProperty Name="Rodzic" Relationship="Self.FK_Wiadomosc_Rodzic" FromRole="Wiadomosc" ToRole="Rodzic" />
+          <NavigationProperty Name="Wiadomosc1" Relationship="Self.FK_Wiadomosc_Wiadomosc" FromRole="Wiadomosc" ToRole="Wiadomosc1" />
+          <NavigationProperty Name="Wiadomosc2" Relationship="Self.FK_Wiadomosc_Wiadomosc" FromRole="Wiadomosc1" ToRole="Wiadomosc" />
+          <Property Name="odpowiedz" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="tytul" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="czyNauczyciel" Type="Boolean" Nullable="false" />
+          <Property Name="czyRodzic" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Klasa_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Klasa">
+              <PropertyRef Name="id_wychowawcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Klasa">
+          <End Role="Klasa" Type="Self.Klasa" Multiplicity="0..1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nauczyciel_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Nauczyciel">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nauczyciel_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Nauczyciel">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Nauczyciel">
+          <End Role="Nauczyciel" Type="Self.Nauczyciel" Multiplicity="1" />
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="Wiadomosc">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Uczen">
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="1" />
+          <End Role="Ocena" Type="Self.Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uczen">
+              <PropertyRef Name="id_ucznia" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_ucznia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogloszenia_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Ogloszenia" Type="Self.Ogloszenia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_statusu" />
+            </Principal>
+            <Dependent Role="Ogloszenia">
+              <PropertyRef Name="id_statusu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rodzic_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Rodzic">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Osoba">
+          <End Role="Osoba" Type="Self.Osoba" Multiplicity="1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Osoba">
+              <PropertyRef Name="id_osoby" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_osoby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Przedmiot">
+          <End Role="Przedmiot" Type="Self.Przedmiot" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pytanie_Test">
+          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+          <End Role="Pytanie" Type="Self.Pytanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="id_testu" />
+            </Principal>
+            <Dependent Role="Pytanie">
+              <PropertyRef Name="id_testu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczen_Rodzic">
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="1" />
+          <End Role="Uczen" Type="Self.Uczen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzic">
+              <PropertyRef Name="id_rodzica" />
+            </Principal>
+            <Dependent Role="Uczen">
+              <PropertyRef Name="id_rodzica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Rodzic">
+          <End Role="Rodzic" Type="Self.Rodzic" Multiplicity="1" />
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rodzic">
+              <PropertyRef Name="id_rodzica" />
+            </Principal>
+            <Dependent Role="Wiadomosc">
+              <PropertyRef Name="id_rodzica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wiadomosc_Wiadomosc">
+          <End Role="Wiadomosc" Type="Self.Wiadomosc" Multiplicity="1" />
+          <End Role="Wiadomosc1" Type="Self.Wiadomosc" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Wiadomosc">
+              <PropertyRef Name="id_wiadomosci" />
+            </Principal>
+            <Dependent Role="Wiadomosc1">
+              <PropertyRef Name="id_wiadomosci" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DziennikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Klasas" EntityType="Self.Klasa" />
+          <EntitySet Name="Nauczyciels" EntityType="Self.Nauczyciel" />
+          <EntitySet Name="Ocenas" EntityType="Self.Ocena" />
+          <EntitySet Name="Odpowiedzs" EntityType="Self.Odpowiedz" />
+          <EntitySet Name="Ogloszenias" EntityType="Self.Ogloszenia" />
+          <EntitySet Name="Osobas" EntityType="Self.Osoba" />
+          <EntitySet Name="Przedmiots" EntityType="Self.Przedmiot" />
+          <EntitySet Name="Pytanies" EntityType="Self.Pytanie" />
+          <EntitySet Name="Rodzics" EntityType="Self.Rodzic" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <EntitySet Name="Uczens" EntityType="Self.Uczen" />
+          <EntitySet Name="Wiadomoscs" EntityType="Self.Wiadomosc" />
+          <AssociationSet Name="FK_Klasa_Nauczyciel" Association="Self.FK_Klasa_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+            <End Role="Klasa" EntitySet="Klasas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Klasa" Association="Self.FK_Uczen_Klasa">
+            <End Role="Klasa" EntitySet="Klasas" />
+            <End Role="Uczen" EntitySet="Uczens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nauczyciel_Osoba" Association="Self.FK_Nauczyciel_Osoba">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nauczyciel_Przedmiot" Association="Self.FK_Nauczyciel_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiots" />
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Nauczyciel" Association="Self.FK_Test_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Nauczyciel" Association="Self.FK_Wiadomosc_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+            <End Role="Wiadomosc" EntitySet="Wiadomoscs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Przedmiot" Association="Self.FK_Ocena_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiots" />
+            <End Role="Ocena" EntitySet="Ocenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Uczen" Association="Self.FK_Ocena_Uczen">
+            <End Role="Uczen" EntitySet="Uczens" />
+            <End Role="Ocena" EntitySet="Ocenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogloszenia_Status" Association="Self.FK_Ogloszenia_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Ogloszenia" EntitySet="Ogloszenias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rodzic_Osoba" Association="Self.FK_Rodzic_Osoba">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="Rodzic" EntitySet="Rodzics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Osoba" Association="Self.FK_Uczen_Osoba">
+            <End Role="Osoba" EntitySet="Osobas" />
+            <End Role="Uczen" EntitySet="Uczens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Przedmiot" Association="Self.FK_Test_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiots" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pytanie_Test" Association="Self.FK_Pytanie_Test">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="Pytanie" EntitySet="Pytanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczen_Rodzic" Association="Self.FK_Uczen_Rodzic">
+            <End Role="Rodzic" EntitySet="Rodzics" />
+            <End Role="Uczen" EntitySet="Uczens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Rodzic" Association="Self.FK_Wiadomosc_Rodzic">
+            <End Role="Rodzic" EntitySet="Rodzics" />
+            <End Role="Wiadomosc" EntitySet="Wiadomoscs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wiadomosc_Wiadomosc" Association="Self.FK_Wiadomosc_Wiadomosc">
+            <End Role="Wiadomosc" EntitySet="Wiadomoscs" />
+            <End Role="Wiadomosc1" EntitySet="Wiadomoscs" />
+          </AssociationSet>
+          <EntitySet Name="PrzedmiotyWKlasies" EntityType="DziennikModel.PrzedmiotyWKlasie" />
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Klasa" Association="DziennikModel.FK_PrzedmiotyWKlasie_Klasa">
+            <End Role="Klasa" EntitySet="Klasas" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Przedmiot" Association="DziennikModel.FK_PrzedmiotyWKlasie_Przedmiot">
+            <End Role="Przedmiot" EntitySet="Przedmiots" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrzedmiotyWKlasie_Nauczyciel" Association="DziennikModel.FK_PrzedmiotyWKlasie_Nauczyciel">
+            <End Role="Nauczyciel" EntitySet="Nauczyciels" />
+            <End Role="PrzedmiotyWKlasie" EntitySet="PrzedmiotyWKlasies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogloszenia_Klasa" Association="DziennikModel.FK_Ogloszenia_Klasa">
+            <End Role="Klasa" EntitySet="Klasas" />
+            <End Role="Ogloszenia" EntitySet="Ogloszenias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ocena_Test" Association="DziennikModel.FK_Ocena_Test">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="Ocena" EntitySet="Ocenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odpowiedz_Pytanie" Association="DziennikModel.FK_Odpowiedz_Pytanie">
+            <End Role="Pytanie" EntitySet="Pytanies" />
+            <End Role="Odpowiedz" EntitySet="Odpowiedzs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PrzedmiotyWKlasie">
+          <Key>
+            <PropertyRef Name="id_przedmiotu_w_klasie" />
+          </Key>
+          <Property Name="id_przedmiotu_w_klasie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_przedmiotu" Type="Int32" Nullable="false" />
+          <Property Name="id_klasy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klasa" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Klasa" FromRole="PrzedmiotyWKlasie" ToRole="Klasa" />
+          <NavigationProperty Name="Przedmiot" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Przedmiot" FromRole="PrzedmiotyWKlasie" ToRole="Przedmiot" />
+          <Property Name="id_nauczyciela" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nauczyciel" Relationship="DziennikModel.FK_PrzedmiotyWKlasie_Nauczyciel" FromRole="PrzedmiotyWKlasie" ToRole="Nauczyciel" />
+        </EntityType>
+        <Association Name="FK_PrzedmiotyWKlasie_Klasa">
+          <End Type="DziennikModel.Klasa" Role="Klasa" Multiplicity="1" />
+          <End Type="DziennikModel.PrzedmiotyWKlasie" Role="PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrzedmiotyWKlasie_Przedmiot">
+          <End Type="DziennikModel.Przedmiot" Role="Przedmiot" Multiplicity="1" />
+          <End Type="DziennikModel.PrzedmiotyWKlasie" Role="PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Przedmiot">
+              <PropertyRef Name="id_przedmiotu" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_przedmiotu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrzedmiotyWKlasie_Nauczyciel">
+          <End Type="DziennikModel.Nauczyciel" Role="Nauczyciel" Multiplicity="1" />
+          <End Type="DziennikModel.PrzedmiotyWKlasie" Role="PrzedmiotyWKlasie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nauczyciel">
+              <PropertyRef Name="id_nauczyciela" />
+            </Principal>
+            <Dependent Role="PrzedmiotyWKlasie">
+              <PropertyRef Name="id_nauczyciela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogloszenia_Klasa">
+          <End Type="DziennikModel.Klasa" Role="Klasa" Multiplicity="0..1" />
+          <End Type="DziennikModel.Ogloszenia" Role="Ogloszenia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasa">
+              <PropertyRef Name="id_klasy" />
+            </Principal>
+            <Dependent Role="Ogloszenia">
+              <PropertyRef Name="id_klasy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ocena_Test">
+          <End Type="DziennikModel.Test" Role="Test" Multiplicity="0..1" />
+          <End Type="DziennikModel.Ocena" Role="Ocena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="id_testu" />
+            </Principal>
+            <Dependent Role="Ocena">
+              <PropertyRef Name="id_testu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odpowiedz_Pytanie">
+          <End Type="DziennikModel.Pytanie" Role="Pytanie" Multiplicity="1" />
+          <End Type="DziennikModel.Odpowiedz" Role="Odpowiedz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pytanie">
+              <PropertyRef Name="id_pytania" />
+            </Principal>
+            <Dependent Role="Odpowiedz">
+              <PropertyRef Name="id_pytania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DziennikModelStoreContainer" CdmEntityContainer="DziennikEntities">
+          <EntitySetMapping Name="Klasas">
+            <EntityTypeMapping TypeName="DziennikModel.Klasa">
+              <MappingFragment StoreEntitySet="Klasa">
+                <ScalarProperty Name="id_klasy" ColumnName="id_klasy" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="id_wychowawcy" ColumnName="id_wychowawcy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nauczyciels">
+            <EntityTypeMapping TypeName="DziennikModel.Nauczyciel">
+              <MappingFragment StoreEntitySet="Nauczyciel">
+                <ScalarProperty Name="id_nauczyciela" ColumnName="id_nauczyciela" />
+                <ScalarProperty Name="id_osoby" ColumnName="id_osoby" />
+                <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ocenas">
+            <EntityTypeMapping TypeName="DziennikModel.Ocena">
+              <MappingFragment StoreEntitySet="Ocena">
+                <ScalarProperty Name="id_testu" ColumnName="id_testu" />
+                <ScalarProperty Name="id_oceny" ColumnName="id_oceny" />
+                <ScalarProperty Name="ocena1" ColumnName="ocena" />
+                <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+                <ScalarProperty Name="id_ucznia" ColumnName="id_ucznia" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odpowiedzs">
+            <EntityTypeMapping TypeName="DziennikModel.Odpowiedz">
+              <MappingFragment StoreEntitySet="Odpowiedz">
+                <ScalarProperty Name="czyPoprawna" ColumnName="czyPoprawna" />
+                <ScalarProperty Name="id_pytania" ColumnName="id_pytania" />
+                <ScalarProperty Name="id_odpowiedzi" ColumnName="id_odpowiedzi" />
+                <ScalarProperty Name="tresc" ColumnName="tresc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogloszenias">
+            <EntityTypeMapping TypeName="DziennikModel.Ogloszenia">
+              <MappingFragment StoreEntitySet="Ogloszenia">
+                <ScalarProperty Name="id_klasy" ColumnName="id_klasy" />
+                <ScalarProperty Name="id_ogloszenia" ColumnName="id_ogloszenia" />
+                <ScalarProperty Name="tresc" ColumnName="tresc" />
+                <ScalarProperty Name="data_dodania" ColumnName="data_dodania" />
+                <ScalarProperty Name="id_statusu" ColumnName="id_statusu" />
+                <ScalarProperty Name="data_waznosci" ColumnName="data_waznosci" />
+                <ScalarProperty Name="tytul" ColumnName="tytul" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Osobas">
+            <EntityTypeMapping TypeName="DziennikModel.Osoba">
+              <MappingFragment StoreEntitySet="Osoba">
+                <ScalarProperty Name="id_osoby" ColumnName="id_osoby" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="haslo" ColumnName="haslo" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="data_urodzenia" ColumnName="data_urodzenia" />
+                <ScalarProperty Name="data_hasla" ColumnName="data_hasla" />
+                <ScalarProperty Name="uprawnienia" ColumnName="uprawnienia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Przedmiots">
+            <EntityTypeMapping TypeName="DziennikModel.Przedmiot">
+              <MappingFragment StoreEntitySet="Przedmiot">
+                <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="tresc_ksztalcenia" ColumnName="tresc_ksztalcenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pytanies">
+            <EntityTypeMapping TypeName="DziennikModel.Pytanie">
+              <MappingFragment StoreEntitySet="Pytanie">
+                <ScalarProperty Name="pkt_za_odpowiedz" ColumnName="pkt_za_odpowiedz" />
+                <ScalarProperty Name="id_pytania" ColumnName="id_pytania" />
+                <ScalarProperty Name="id_testu" ColumnName="id_testu" />
+                <ScalarProperty Name="tresc" ColumnName="tresc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rodzics">
+            <EntityTypeMapping TypeName="DziennikModel.Rodzic">
+              <MappingFragment StoreEntitySet="Rodzic">
+                <ScalarProperty Name="id_rodzica" ColumnName="id_rodzica" />
+                <ScalarProperty Name="id_osoby" ColumnName="id_osoby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="DziennikModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="id_statusu" ColumnName="id_statusu" />
+                <ScalarProperty Name="status1" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="DziennikModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="max_punktow" ColumnName="max_punktow" />
+                <ScalarProperty Name="id_testu" ColumnName="id_testu" />
+                <ScalarProperty Name="id_nauczyciela" ColumnName="id_nauczyciela" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+                <ScalarProperty Name="czas_trwania" ColumnName="czas_trwania" />
+                <ScalarProperty Name="ilosc_pytan" ColumnName="ilosc_pytan" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uczens">
+            <EntityTypeMapping TypeName="DziennikModel.Uczen">
+              <MappingFragment StoreEntitySet="Uczen">
+                <ScalarProperty Name="id_ucznia" ColumnName="id_ucznia" />
+                <ScalarProperty Name="id_osoby" ColumnName="id_osoby" />
+                <ScalarProperty Name="id_rodzica" ColumnName="id_rodzica" />
+                <ScalarProperty Name="id_klasy" ColumnName="id_klasy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wiadomoscs">
+            <EntityTypeMapping TypeName="DziennikModel.Wiadomosc">
+              <MappingFragment StoreEntitySet="Wiadomosc">
+                <ScalarProperty Name="czyRodzic" ColumnName="czyRodzic" />
+                <ScalarProperty Name="czyNauczyciel" ColumnName="czyNauczyciel" />
+                <ScalarProperty Name="tytul" ColumnName="tytul" />
+                <ScalarProperty Name="odpowiedz" ColumnName="odpowiedz" />
+                <ScalarProperty Name="id_wiadomosci" ColumnName="id_wiadomosci" />
+                <ScalarProperty Name="tresc" ColumnName="tresc" />
+                <ScalarProperty Name="id_rodzica" ColumnName="id_rodzica" />
+                <ScalarProperty Name="id_nauczyciela" ColumnName="id_nauczyciela" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrzedmiotyWKlasies">
+            <EntityTypeMapping TypeName="DziennikModel.PrzedmiotyWKlasie">
+              <MappingFragment StoreEntitySet="PrzedmiotyWKlasie">
+                <ScalarProperty Name="id_nauczyciela" ColumnName="id_nauczyciela" />
+                <ScalarProperty Name="id_klasy" ColumnName="id_klasy" />
+                <ScalarProperty Name="id_przedmiotu" ColumnName="id_przedmiotu" />
+                <ScalarProperty Name="id_przedmiotu_w_klasie" ColumnName="id_przedmiotu_w_klasie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

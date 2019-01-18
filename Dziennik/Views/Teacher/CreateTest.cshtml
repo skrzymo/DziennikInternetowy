@@ -1,0 +1,159 @@
+﻿@model Dziennik.Models.Test
+@{
+    ViewBag.Title = "Nowy test";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background-image: url(../../Images/background_classroom.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 400px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box .field-validation-error label {
+                color: red;
+                text-align: center;
+            }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+            .box .inputBox {
+                position: relative;
+            }
+
+                .box .inputBox p2 {
+                    width: 300px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                }
+
+                .box .inputBox input {
+                    width: 300px;
+                    padding: 10px 0;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 30px;
+                    border: none;
+                    border: 1px solid white;
+                    outline: none;
+                    background: transparent;
+                }
+
+                .box .inputBox label {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    color: white;
+                    pointer-events: none;
+                    transition: .5s;
+                }
+
+                .box .inputBox input:focus ~ label,
+                .box .inputBox input:valid ~ label {
+                    top: -25px;
+                    left: 0;
+                    color: #03a9f4;
+                    font-size: 12px;
+                }
+
+            .box input[type="submit"] {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+
+            .box a.button {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 12px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+            }
+
+            .box .dropDownList a {
+                font-size: 16px;
+                color: #000000;
+            }
+    </style>
+</head>
+
+<body style="background-image: url(../../Images/background_teacher.jpg);">
+    @using (Html.BeginForm("CreateTest", "Teacher", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="box">
+            <h2>Nowy test</h2>
+            <div class="inputBox">
+                <input type="text" name="nazwa" id="nazwa" required>
+                <label>Nazwa</label>
+            </div>
+            <div class="inputBox">
+                <input type="number" min="0" name="iloscPytan" id="iloscPytan" required>
+                <label>Ilość pytań</label>
+            </div>
+            <div class="inputBox">
+                <input type="number" min="0" name="maxPunktow" id="maxPunktow" required>
+                <label>Maksymalna liczba punktów</label>
+            </div>
+            <div class="inputBox">
+                <input type="time" name="czasTrwania" id="czasTrwania" required>
+                <label>Czas trwania (HH:MM)</label>
+            </div>
+            <br><br />
+            <input type="submit" value="Dalej">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a>@Html.ActionLink("Cofnij", "Index", null, new { @class = "button" })</a>
+        </div>
+    }
+</body>
+</html>

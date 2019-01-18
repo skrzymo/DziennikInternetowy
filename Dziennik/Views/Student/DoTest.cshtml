@@ -1,0 +1,157 @@
+﻿@model IEnumerable<Dziennik.Models.Pytanie>
+
+@{
+    ViewBag.Title = "Test";
+    int count = 1, countR = 0;
+    var timeRemaining = ViewBag.testTime;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    <style>
+        body {
+            font-family: sans-serif;
+            background-image: url(../../Images/background_student.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 600px;
+            padding: 40px;
+            background: rgba(0,0,0,.8);
+            box-sizing: border-box;
+            box-shadow: 0 15px 25px rgba(0,0,0,.5);
+            border-radius: 10px;
+        }
+
+            .box h2 {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: center;
+            }
+
+            .box .czas {
+                margin: 0 0 30px;
+                padding: 0;
+                color: white;
+                text-align: left;
+                font-size: 16px;
+            }
+
+            .box .summary input[type="submit"] {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+                background: #03a9f4;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: larger;
+                float: left;
+                margin-top: 25px;
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm(null, "Student", FormMethod.Post, new { id = "testForm" }))
+    {
+        <div class="box">
+
+            <div class="Quiz">
+
+                <h2>@ViewBag.testName</h2>
+
+                <div class="czas">Pozostały czas: <span id="minRemaining"></span>:<span id="secRemaining"></span></div>
+
+                @foreach (var question in Model)
+                {
+                    <div class="BlockQ" style="border: 1px solid #bdbdbd; width: 75%; border-radius: 4px; margin-top: 40px; background-color: #f0ffff; padding: 8px;">
+
+                        <div class="Question" style="padding: 2%;">
+                            <span class="label label-warning"> @string.Format("{0}{1}.", "P", count)</span>
+                            <span id="@string.Format("{0}{1}", "ID_Q", count)" style="display:none;">@question.id_pytania</span>
+                            <p style="display: inline; padding: 2%;" id="@string.Format("{0}{1}", "P", count)">@question.tresc</p>
+                        </div>
+
+                        <div class="Choices" style="margin-left: 8%;">
+
+                            @foreach (var choice in question.Odpowiedzs)
+                            {
+                                <label class="radio-inline">
+                                    <input type="radio" name="@string.Format("{0}{1}", "inlineRadioOptions", count)" id="@string.Format("{0}{1}", "inlineRadio", countR)" value="@choice.id_odpowiedzi" style="margin-left: -16px;"> @choice.tresc
+                                </label><br />
+                                countR++;
+                            }
+
+                        </div> <!--END Choices-->
+
+                        <div id="@string.Format("{0}{1}{2}", "Ans", "Q", count)">
+
+
+                        </div>
+
+                    </div> <!-- END BlockQ -->
+                    count++;
+                }
+                <span id="countQuestions" style="display:none;">@count</span>
+                <div class="summary">
+                    <input type="submit" id="testSubmit" value="Zatwierdź" />
+                </div>
+
+            </div> <!-- END QUIZ -->
+
+        </div>
+    }
+
+    <script>
+        var remSeconds = @timeRemaining;
+        var secondsCounter = remSeconds % 60;
+
+        function formatNumber(number) {
+            if (number < 10) {
+                return '0' + number;
+            } else {
+                return '' + number;
+            }
+        }
+
+        function startTick() {
+            document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+            document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds / 60));
+             
+            var _tick = setInterval(function () {
+
+                if (remSeconds > 0) {
+                    if (secondsCounter == 0) {
+                        secondsCounter = 60;
+                    }
+
+                    remSeconds = remSeconds - 1;
+                    secondsCounter = secondsCounter - 1;
+                    document.getElementById('secRemaining').innerText = formatNumber(secondsCounter);
+                    document.getElementById('minRemaining').innerText = formatNumber(parseInt(remSeconds / 60));
+                } else {
+                    alert('Czas upłynął');
+                    clearInterval(_tick);
+                    document.getElementById('testSubmit').click();
+                }
+                
+                
+            }, 1000);
+        }
+        startTick();
+        
+    </script>
+    </body>
+</html>

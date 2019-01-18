@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="Dziennik" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Klasa" Member="Klasa">
+    <Type Name="Klasa">
+      <Column Name="id_klasy" Member="Id_klasy" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nazwa" Member="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id_wychowawcy" Member="Id_wychowawcy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Klasa_Nauczyciel" Member="Nauczyciel" ThisKey="Id_wychowawcy" OtherKey="Id_nauczyciela" Type="Nauczyciel" IsForeignKey="true" />
+      <Association Name="FK_Uczen_Klasa" Member="Uczen" ThisKey="Id_klasy" OtherKey="Id_klasy" Type="Uczen" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nauczyciel" Member="Nauczyciel">
+    <Type Name="Nauczyciel">
+      <Column Name="id_nauczyciela" Member="Id_nauczyciela" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_osoby" Member="Id_osoby" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_przedmiotu" Member="Id_przedmiotu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Klasa_Nauczyciel" Member="Klasa" ThisKey="Id_nauczyciela" OtherKey="Id_wychowawcy" Type="Klasa" DeleteRule="NO ACTION" />
+      <Association Name="FK_Nauczyciel_Osoba" Member="Osoba" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Osoba" IsForeignKey="true" />
+      <Association Name="FK_Nauczyciel_Przedmiot" Member="Przedmiot" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Przedmiot" IsForeignKey="true" />
+      <Association Name="FK_Test_Nauczyciel" Member="Test" ThisKey="Id_nauczyciela" OtherKey="Id_nauczyciela" Type="Test" DeleteRule="NO ACTION" />
+      <Association Name="FK_Wiadomosc_Nauczyciel" Member="Wiadomosc" ThisKey="Id_nauczyciela" OtherKey="Id_nauczyciela" Type="Wiadomosc" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ocena" Member="Ocena">
+    <Type Name="Ocena">
+      <Column Name="id_oceny" Member="Id_oceny" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ocena" Member="Ocena1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_przedmiotu" Member="Id_przedmiotu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_ucznia" Member="Id_ucznia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="data" Member="Data" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Ocena_Przedmiot" Member="Przedmiot" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Przedmiot" IsForeignKey="true" />
+      <Association Name="FK_Ocena_Uczen" Member="Uczen" ThisKey="Id_ucznia" OtherKey="Id_ucznia" Type="Uczen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Odpowiedz" Member="Odpowiedz">
+    <Type Name="Odpowiedz">
+      <Column Name="id_odpowiedzi" Member="Id_odpowiedzi" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tresc" Member="Tresc" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="FK_OdpowiedzNaPytanie_Odpowiedz" Member="OdpowiedzNaPytanie" ThisKey="Id_odpowiedzi" OtherKey="Id_odpowiedzi" Type="OdpowiedzNaPytanie" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OdpowiedzNaPytanie" Member="OdpowiedzNaPytanie">
+    <Type Name="OdpowiedzNaPytanie">
+      <Column Name="id_odpowiedzi_na_pytanie" Member="Id_odpowiedzi_na_pytanie" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_pytania" Member="Id_pytania" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_odpowiedzi" Member="Id_odpowiedzi" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="czy_prawidlowa" Member="Czy_prawidlowa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_OdpowiedzNaPytanie_Odpowiedz" Member="Odpowiedz" ThisKey="Id_odpowiedzi" OtherKey="Id_odpowiedzi" Type="Odpowiedz" IsForeignKey="true" />
+      <Association Name="FK_OdpowiedzNaPytanie_Pytanie" Member="Pytanie" ThisKey="Id_pytania" OtherKey="Id_pytania" Type="Pytanie" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ogloszenia" Member="Ogloszenia">
+    <Type Name="Ogloszenia">
+      <Column Name="id_ogloszenia" Member="Id_ogloszenia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tresc" Member="Tresc" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="data" Member="Data" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="id_statusu" Member="Id_statusu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Ogloszenia_Status" Member="Status" ThisKey="Id_statusu" OtherKey="Id_statusu" Type="Status" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Osoba" Member="Osoba">
+    <Type Name="Osoba">
+      <Column Name="id_osoby" Member="Id_osoby" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="imie" Member="Imie" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="nazwisko" Member="Nazwisko" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="adres" Member="Adres" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="email" Member="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="haslo" Member="Haslo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="telefon" Member="Telefon" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="data_urodzenia" Member="Data_urodzenia" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="data_hasla" Member="Data_hasla" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="uprawnienia" Member="Uprawnienia" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="FK_Nauczyciel_Osoba" Member="Nauczyciel" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Nauczyciel" DeleteRule="NO ACTION" />
+      <Association Name="FK_Rodzic_Osoba" Member="Rodzic" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Rodzic" DeleteRule="NO ACTION" />
+      <Association Name="FK_Uczen_Osoba" Member="Uczen" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Uczen" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Przedmiot" Member="Przedmiot">
+    <Type Name="Przedmiot">
+      <Column Name="id_przedmiotu" Member="Id_przedmiotu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nazwa" Member="Nazwa" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="tresc_ksztalcenia" Member="Tresc_ksztalcenia" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Association Name="FK_Nauczyciel_Przedmiot" Member="Nauczyciel" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Nauczyciel" DeleteRule="NO ACTION" />
+      <Association Name="FK_Ocena_Przedmiot" Member="Ocena" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Ocena" DeleteRule="NO ACTION" />
+      <Association Name="FK_Test_Przedmiot" Member="Test" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Test" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pytanie" Member="Pytanie">
+    <Type Name="Pytanie">
+      <Column Name="id_pytania" Member="Id_pytania" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_testu" Member="Id_testu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tresc" Member="Tresc" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="FK_OdpowiedzNaPytanie_Pytanie" Member="OdpowiedzNaPytanie" ThisKey="Id_pytania" OtherKey="Id_pytania" Type="OdpowiedzNaPytanie" DeleteRule="NO ACTION" />
+      <Association Name="FK_Pytanie_Test" Member="Test" ThisKey="Id_testu" OtherKey="Id_testu" Type="Test" IsForeignKey="true" />
+      <Association Name="FK_PytanieNaTescie_Pytanie" Member="PytanieNaTescie" ThisKey="Id_pytania" OtherKey="Id_pytania" Type="PytanieNaTescie" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PytanieNaTescie" Member="PytanieNaTescie">
+    <Type Name="PytanieNaTescie">
+      <Column Name="id_pytania_na_tescie" Member="Id_pytania_na_tescie" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_pytania" Member="Id_pytania" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_testu" Member="Id_testu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_PytanieNaTescie_Pytanie" Member="Pytanie" ThisKey="Id_pytania" OtherKey="Id_pytania" Type="Pytanie" IsForeignKey="true" />
+      <Association Name="FK_PytanieNaTescie_Test" Member="Test" ThisKey="Id_testu" OtherKey="Id_testu" Type="Test" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rodzic" Member="Rodzic">
+    <Type Name="Rodzic">
+      <Column Name="id_rodzica" Member="Id_rodzica" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_osoby" Member="Id_osoby" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Rodzic_Osoba" Member="Osoba" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Osoba" IsForeignKey="true" />
+      <Association Name="FK_Uczen_Rodzic" Member="Uczen" ThisKey="Id_rodzica" OtherKey="Id_rodzica" Type="Uczen" DeleteRule="NO ACTION" />
+      <Association Name="FK_Wiadomosc_Rodzic" Member="Wiadomosc" ThisKey="Id_rodzica" OtherKey="Id_rodzica" Type="Wiadomosc" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Status" Member="Status">
+    <Type Name="Status">
+      <Column Name="id_statusu" Member="Id_statusu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="status" Member="Status1" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Ogloszenia_Status" Member="Ogloszenia" ThisKey="Id_statusu" OtherKey="Id_statusu" Type="Ogloszenia" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Test" Member="Test">
+    <Type Name="Test">
+      <Column Name="id_testu" Member="Id_testu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_nauczyciela" Member="Id_nauczyciela" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nazwa" Member="Nazwa" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="id_przedmiotu" Member="Id_przedmiotu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="czas_trwania" Member="Czas_trwania" Type="System.TimeSpan" DbType="Time(7) NOT NULL" CanBeNull="false" />
+      <Column Name="ilosc_pytan" Member="Ilosc_pytan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="pkt_za_dobra_odp" Member="Pkt_za_dobra_odp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="pkt_za_zla_odp" Member="Pkt_za_zla_odp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Pytanie_Test" Member="Pytanie" ThisKey="Id_testu" OtherKey="Id_testu" Type="Pytanie" DeleteRule="NO ACTION" />
+      <Association Name="FK_PytanieNaTescie_Test" Member="PytanieNaTescie" ThisKey="Id_testu" OtherKey="Id_testu" Type="PytanieNaTescie" DeleteRule="NO ACTION" />
+      <Association Name="FK_Test_Nauczyciel" Member="Nauczyciel" ThisKey="Id_nauczyciela" OtherKey="Id_nauczyciela" Type="Nauczyciel" IsForeignKey="true" />
+      <Association Name="FK_Test_Przedmiot" Member="Przedmiot" ThisKey="Id_przedmiotu" OtherKey="Id_przedmiotu" Type="Przedmiot" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Uczen" Member="Uczen">
+    <Type Name="Uczen">
+      <Column Name="id_ucznia" Member="Id_ucznia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_osoby" Member="Id_osoby" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_rodzica" Member="Id_rodzica" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_klasy" Member="Id_klasy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Ocena_Uczen" Member="Ocena" ThisKey="Id_ucznia" OtherKey="Id_ucznia" Type="Ocena" DeleteRule="NO ACTION" />
+      <Association Name="FK_Uczen_Klasa" Member="Klasa" ThisKey="Id_klasy" OtherKey="Id_klasy" Type="Klasa" IsForeignKey="true" />
+      <Association Name="FK_Uczen_Osoba" Member="Osoba" ThisKey="Id_osoby" OtherKey="Id_osoby" Type="Osoba" IsForeignKey="true" />
+      <Association Name="FK_Uczen_Rodzic" Member="Rodzic" ThisKey="Id_rodzica" OtherKey="Id_rodzica" Type="Rodzic" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wiadomosc" Member="Wiadomosc">
+    <Type Name="Wiadomosc">
+      <Column Name="id_wiadomosci" Member="Id_wiadomosci" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tresc" Member="Tresc" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="id_rodzica" Member="Id_rodzica" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_nauczyciela" Member="Id_nauczyciela" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="data" Member="Data" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="FK_Wiadomosc_Nauczyciel" Member="Nauczyciel" ThisKey="Id_nauczyciela" OtherKey="Id_nauczyciela" Type="Nauczyciel" IsForeignKey="true" />
+      <Association Name="FK_Wiadomosc_Rodzic" Member="Rodzic" ThisKey="Id_rodzica" OtherKey="Id_rodzica" Type="Rodzic" IsForeignKey="true" />
+      <Association Name="FK_Wiadomosc_Wiadomosc" Member="Id_wiadomosciWiadomosc" ThisKey="Id_wiadomosci" OtherKey="Id_wiadomosci" Type="Wiadomosc" IsForeignKey="true" />
+      <Association Name="FK_Wiadomosc_Wiadomosc" Member="Wiadomosc_Wiadomosc" ThisKey="Id_wiadomosci" OtherKey="Id_wiadomosci" Type="Wiadomosc" Cardinality="One" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+</Database>

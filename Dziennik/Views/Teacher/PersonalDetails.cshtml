@@ -1,0 +1,167 @@
+﻿@model Dziennik.Models.Osoba
+
+@{
+    ViewBag.Title = "Dane osobowe";
+}
+<!DOCTYPE html>
+
+<html>
+<meta charset="UTF-8" content="width=device-width" />
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-image: url(../../Images/background_teacher.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: white;
+    }
+
+    a {
+        color: white;
+    }
+
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 400px;
+        padding: 40px;
+        background: rgba(0,0,0,.8);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0,0,0,.5);
+        border-radius: 10px;
+    }
+
+        .box h2 {
+            margin: 0 0 30px;
+            padding: 0;
+            color: white;
+            text-align: center;
+        }
+
+        .box .inputBox {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .box .inputBox2 {
+            position: relative;
+            margin-bottom: 5px;
+        }
+
+        .box .inputBoxStudents {
+            position: relative;
+            margin-bottom: 30px;
+            border: 1px solid white;
+            padding-bottom: 5px;
+        }
+
+        .box .inputBox .input {
+            width: 300px;
+            padding: 10px 0;
+            font-size: 16px;
+            margin-top: 12px;
+            color: white;
+            border: none;
+            border: 1px solid white;
+            outline: none;
+            background: transparent;
+        }
+
+        .box .inputBox .label {
+            left: 0;
+            padding: 10px 10px;
+            font-size: 16px;
+            color: white;
+            pointer-events: none;
+        }
+
+        .box .inputBox2 .label {
+            left: 0;
+            padding: 10px 10px;
+            font-size: 16px;
+            color: white;
+            pointer-events: none;
+        }
+
+        .box .summary .backButton .button {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            background: #03a9f4;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            float: right;
+            font-size: larger;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+
+        .box .summary .editButton .button {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            background: #03a9f4;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            float: left;
+            font-size: larger;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+</style>
+</head>
+<body style="background-image: url(../../Images/background_teacher.jpg);">
+    <div class="box">
+        <h2>Dane osobowe</h2>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.imie, "Imię", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.imie)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.nazwisko, "Nazwisko", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.nazwisko)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.data_urodzenia, "Data urodzenia", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.data_urodzenia)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.adres, "Adres", htmlAttributes: new { @class = "label" })
+            <div class="inputBoxStudents">
+                @Html.DisplayFor(model => model.adres)
+            </div>
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.email, "E-mail", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.email)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.haslo, "Hasło", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.haslo)
+        </div>
+
+        <div class="inputBox">
+            @Html.LabelFor(model => model.telefon, "Telefon", htmlAttributes: new { @class = "label" })
+            @Html.DisplayFor(model => model.telefon)
+        </div>
+
+        <div class="summary">
+            <span class="editButton">@Html.ActionLink("Edytuj", "EditPersonalDetails", new { id = Session["PersonID"] }, new { @class = "button" })</span><span class="backButton">@Html.ActionLink("Cofnij", "Index", null, new { @class = "button" })</span>
+        </div>
+    </div>
+</body>
+</html>

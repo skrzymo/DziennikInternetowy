@@ -1,0 +1,35 @@
+﻿@model Dziennik.Models.Osoba
+@{
+    ViewBag.Title = "Logowanie";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body style="background-image: url(../../Images/background_classroom.jpg);">
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        <div class="box">
+            <h2>Logowanie</h2>
+            <div class="inputBox">
+                <input type="email" name="email" id="email" required>
+                <label>E-mail</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" name="haslo" id="haslo" required>
+                <label>Hasło</label>
+            </div>
+            <input type="submit" value="Zaloguj">
+            <br><br />
+            <div class="field-validation-error">
+                 <label>@Html.DisplayFor(model => model.LoginErrorMessage)</label>
+            </div>
+        </div>
+    }
+</body>
+</html>
