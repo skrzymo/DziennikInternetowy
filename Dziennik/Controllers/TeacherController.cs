@@ -126,8 +126,10 @@ namespace Dziennik.Controllers
 
         [Filters.AuthorizeTeacher]
         [HttpPost]
-        public ActionResult AddGrade(Ocena ocena)
+        public ActionResult AddGrade(FormCollection formCollection)
         {
+            Ocena ocena = new Ocena();
+
             int personID = Convert.ToInt32(Session["personID"]);
             int subjectID = db.Nauczyciele.Where(n => n.id_osoby == personID).FirstOrDefault().id_przedmiotu;
             int studentID = Convert.ToInt32(Session["choosenStudentID"]);
@@ -135,6 +137,7 @@ namespace Dziennik.Controllers
             ocena.id_przedmiotu = subjectID;
             ocena.id_ucznia = studentID;
             ocena.data = DateTime.Now;
+            ocena.ocena1 = Convert.ToInt32(formCollection["ocena"]);
 
             db.Oceny.Add(ocena);
             db.SaveChanges();

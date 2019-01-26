@@ -160,11 +160,11 @@
             <label>Data urodzenia</label>
         </div>
         <div class="dropDownList">
-            <a>@Html.DropDownListFor(model => model.parentId, Dziennik.ViewModels.CreateStudentModel.GetParentsValues(), "Rodzic")</a>
+            <a>@Html.DropDownListFor(model => model.parentId, Dziennik.ViewModels.CreateStudentModel.GetParentsValues(), "Rodzic", new { required = "required" })</a>
         </div>
         <br><br />
         <div class="dropDownList">
-            <a>@Html.DropDownListFor(model => model.classId, Dziennik.ViewModels.CreateStudentModel.GetClassesValues(), "Klasa")</a>
+            <a>@Html.DropDownListFor(model => model.classId, Dziennik.ViewModels.CreateStudentModel.GetClassesValues(), "Klasa", new { required = "required" })</a>
         </div>
         <br><br />
         <input type="submit" value="Utwórz">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a>@Html.ActionLink("Cofnij", "Students", null, new { @class = "button" })</a>
